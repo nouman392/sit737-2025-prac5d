@@ -1,44 +1,49 @@
-Calculator Microservice – Dockerized Deployment  
-**SIT737-2025-Prac5P | Cloud-Native Application Development**
-
-## 📘 Overview
-
-This project demonstrates how to Dockerize a Node.js-based calculator microservice using Docker and Docker Compose. It includes advanced arithmetic operations and implements container health checks to ensure service reliability.
+# Calculator Microservice – Task 5D  
+**SIT737 – Cloud-Native Application Development**  
+**Task 5D – Production Deployment to Google Cloud Container Registry (GCR)**
 
 ---
 
-## Tech Stack
-
-- **Node.js + Express** – RESTful microservice
-- **Docker** – Containerization platform
-- **Docker Compose** – Multi-container orchestration
-- **Winston** – Logging library (already integrated)
+## Overview  
+This project extends the Dockerized calculator microservice from Task 5.1P by publishing it to a private container registry on Google Cloud Platform (GCP). The image can now be securely pulled and executed from any environment, making it production-ready.
 
 ---
 
-## Setup Instructions
+## Objectives  
+- Containerize a Node.js microservice  
+- Authenticate Docker with GCP  
+- Tag and push the image to Google Container Registry (GCR)  
+- Pull and run the image from GCR to validate production readiness
 
-### 1. Clone the Repository
+---
 
-```bash
-git clone https://github.com/your-username/sit737-2025-prac4c.git
-cd sit737-2025-prac5P
-2. Build Docker Image
+## Tools Used  
+- [Node.js](https://nodejs.org/en/)  
+- [Docker](https://www.docker.com/products/docker-desktop)  
+- [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)  
+- [Git](https://git-scm.com)  
+- [Visual Studio Code](https://code.visualstudio.com/)
+
+---
+
+Step 3: Build Docker Image
 docker build -t calculator-microservice .
-3. Start Docker Compose
-docker-compose up --build
+Step 4: Tag the Image for GCR
+docker tag calculator-microservice gcr.io/sit737-25t1-ali-4ade49e/microservices-calculator
+Step 5: Push Image to GCR
+docker push gcr.io/sit737-25t1-ali-4ade49e/microservices-calculator
+Step 6: Pull and Run Image from GCR
+docker pull gcr.io/sit737-25t1-ali-4ade49e/microservices-calculator
+docker run -p 3000:3000 gcr.io/sit737-25t1-ali-4ade49e/microservices-calculator
+Open your browser:
+http://localhost:3000/add?num1=5&num2=3
+Expected response:
+{ "result": 8 }
 
-Project Structure
-sit737-2025-prac5P/
-│
-├── server.js
-├── package.json
-├── Dockerfile
-├── docker-compose.yml
-├── logs/
-└── README.md
+Benefits of Cloud Deployment
+Portable – Pull and deploy anywhere
 
-Push to Docker Hub
-docker tag calculator-microservice your-dockerhub-username/calculator-microservice
-docker push your-dockerhub-username/calculator-microservice
-```
+Cloud-native – Ready for Cloud Run, GKE, or CI/CD pipelines
+
+Secure – Hosted in a private container registry
+Reusable – Can serve as base for future microservices
